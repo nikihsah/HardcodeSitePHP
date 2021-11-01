@@ -2,7 +2,7 @@
 
 return array(
 	'tables' => 'tables/index',
-	'login' => 'login/logining',
+	'login' => 'login/logging',
 
 )
 

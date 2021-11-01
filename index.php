@@ -22,6 +22,3 @@ mysqli_select_db($connect, $dbname);
 //4 Вызов Route
 $route = new Router();
 $route->run();
-
-
-?>
