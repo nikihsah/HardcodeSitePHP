@@ -1,7 +1,10 @@
 <?php
 $not = null;
 return array(
-	"$not" => 'tables/index',
+
+	'upper' => 'tables/upper',
+
 	'login' => 'login/logging',
 
+    "$not" => 'tables/index',
 );
