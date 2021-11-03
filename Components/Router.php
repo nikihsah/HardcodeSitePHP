@@ -39,7 +39,6 @@ class Router
                 $controllerName = ucfirst(array_shift($segments)) . 'Controller';
                 $actionName = 'action' . ucfirst(array_shift($segments));
                 $controlFile = ROOT . '/controllers/' . $controllerName . '.php';
-
                 if (file_exists($controlFile)) {
                     include_once($controlFile);
                 }

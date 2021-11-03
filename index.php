@@ -10,14 +10,8 @@ define('ROOT', dirname(__FILE__));
 require_once(ROOT.'/Components/Router.php');
 
 //3 Установка соеденения с бд
-$server = 'localhost'; 
-$username = 'root'; 
-$password = '';
-$dbname = 'biblio';
-
-$connect = mysqli_connect($server, $username, $password, $dbname); 
-mysqli_select_db($connect, $dbname);
-
+include_once('connect.php');
+connect();
 
 //4 Вызов Route
 $route = new Router();
