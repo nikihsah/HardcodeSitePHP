@@ -7,8 +7,7 @@ class books
     {
         $connect = connect();
         $result = mysqli_query($connect, 'SELECT books.id, books.name, books.years, books.description, 
-       books.city, authors.id as authorsid, authors.FIO, authors.birthday, authors.city, 
-       authors.death, genres.id as genreid, genres.genre 
+       books.city, books.idAuthor as authorsid, authors.FIO, books.idGenre as genreid, genres.genre 
         FROM books inner join genres ON books.idGenre = genres.id 
         inner join authors ON books.idAuthor = authors.id');
         while ($row = mysqli_fetch_assoc($result)) {
@@ -31,5 +30,19 @@ class books
             idAuthor = '$FIO', idGenre = '$genre'
         WHERE id = $id
         ");
+    }
+
+    public static function getGenre($id){
+        $connect = connect();
+        return mysqli_query($connect, "SELECT genres.id, genre 
+                                             FROM genres inner join books ON books.idGenre = genres.id 
+                                             WHERE books.id = $id");
+    }
+
+    public static function getAuthor($id){
+        $connect = connect();
+        return mysqli_query($connect, "SELECT authors.id, FIO 
+                                             FROM authors inner join books ON books.idAuthor = authors.id 
+                                             WHERE books.id = $id");
     }
 }
