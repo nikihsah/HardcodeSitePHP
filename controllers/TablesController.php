@@ -10,9 +10,9 @@ class TablesController
         $authorTable = authors::getall();
         $booksTable = books::getall();
         $genresTable = genres::getall();
+        $tables = ['books' => $booksTable, 'authors' => $authorTable, 'genres' => $genresTable];
         require_once('Tables and books/index.php');
-
-        return True;
+        return true;
     }
 
     public function actionUpper(): bool

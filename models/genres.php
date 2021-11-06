@@ -6,7 +6,11 @@ class genres
     public static function getall()
     {
         $connect = connect();
-        return mysqli_query($connect,'SELECT genres.id, genres.genre From genres');
+        $result = mysqli_query($connect,'SELECT genres.id, genres.genre From genres');
+        while ($row = mysqli_fetch_assoc($result)) {
+            $tablesRows[] = $row;
+        }
+        return $tablesRows;
     }
 
     public static function delete($id)

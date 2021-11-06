@@ -6,7 +6,11 @@ class authors
     public static function getall()
     {
         $connect = connect();
-        return mysqli_query($connect, 'SELECT authors.id, authors.FIO, authors.birthday, authors.city, authors.death From authors');
+        $result = mysqli_query($connect, 'SELECT authors.id, authors.FIO, authors.birthday, authors.city, authors.death From authors');
+        while ($row = mysqli_fetch_assoc($result)) {
+            $tablesRows[] = $row;
+        }
+        return $tablesRows;
     }
 
     public static function delete($id)
