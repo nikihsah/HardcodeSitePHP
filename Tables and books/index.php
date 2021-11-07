@@ -5,12 +5,16 @@ include(ROOT . '/includes/header.php') ?>
 <?php
 if(!($_POST)){
 ?>
+<!--    Всплывающее окно добавления-->
+    <?php
+    include_once(ROOT . '/Tables and books/modelicon.php')
+    ?>
 
     <?php
     foreach($tables as $name => $table){
     ?>
         <section class="container-fluid">
-            <div class="position-relative start-50"><h3><?=$name?></h3></div>
+            <div class="position-relative" style="text-align: center"><h3><?=$name?></h3></div>
             <table class='table'>
                 <tr>
 <!--                         Название столбцов -->
@@ -48,6 +52,10 @@ if(!($_POST)){
                 }
                 ?>
             </table>
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#<?=$name?>">
+                Добавить запись
+            </button>
+            <hr size="20">
         </section>
     <?php
     }
