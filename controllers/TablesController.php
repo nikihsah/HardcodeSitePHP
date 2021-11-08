@@ -2,30 +2,41 @@
 require_once(ROOT . '/models/authors.php');
 require_once(ROOT . '/models/books.php');
 require_once(ROOT . '/models/genres.php');
+require_once(ROOT . '/models/user.php');
 
 class TablesController
 {
 
     /**
      * Выборка по всем таблицам и вызов странички
+     *
      * @return bool
      */
     public function actionIndex(): bool
     {
+
+        // ------------ВЫБОРКА ИЗ ТАБЛИЦ---------------
         $authorTable = authors::getall();
         $booksTable = books::getall();
         $genresTable = genres::getall();
-        if ($_POST) {
-            $genre = mysqli_fetch_assoc(books::getGenre($_POST['Upper']));
-            $author = mysqli_fetch_assoc(books::getAuthor($_POST['Upper']));
+        if($_POST) {
+            $genre = mysqli_fetch_assoc(books::getGenre($_POST['id']));
+            $author = mysqli_fetch_assoc(books::getAuthor($_POST['id']));
         }
         $tables = ['books' => $booksTable, 'authors' => $authorTable, 'genres' => $genresTable];
+
+//        ________САЙТ_______
+        include_once(ROOT . '/includes/header.php');
+        include_once(ROOT . '/Tables and books/modelicon.php');
         require_once('Tables and books/index.php');
+        include(ROOT . '/includes/footer.php');
+
         return true;
     }
 
     /**
      * Изменение строк в таблицах и перенаправление на /
+     *
      * @return bool
      */
     public function actionUpper(): bool
@@ -56,6 +67,7 @@ class TablesController
 
     /**
      * Удаление строк в таблицах и перенаправление на /
+     *
      * @return bool
      */
     public function actionDel(): bool
@@ -87,12 +99,35 @@ class TablesController
 
     /**
      * Добавление строк в таблицах и перенаправление на /
+     *
      * @return bool
      */
     public function actionAdd(): bool
     {
-        var_dump($_POST);
-        return True;
+        switch ($_POST["table"]) {
+
+            case 'books':
+                books::addBooks($_POST['name'], $_POST['years'], $_POST['description'],
+                    $_POST['city'], $_POST['FIO'], $_POST['genre']);
+                header('Location: /');
+                return true;
+                break;
+
+            case 'genres':
+                var_dump($_POST);
+                genres::delete($_POST['id']);
+                header('Location: /');
+                return true;
+                break;
+
+            case 'authors':
+                authors::delete($_POST['id']);
+                header('Location: /');
+                return true;
+                break;
+        }
+
+        return TRUE;
     }
 
 }

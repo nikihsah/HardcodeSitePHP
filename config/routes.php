@@ -6,6 +6,8 @@ return array(
     'add' => 'tables/add',
 
 	'login' => 'login/logging',
+    'exit' => 'login/logout',
+    'singin' => 'login/singin',
 
     "$not" => 'tables/index',
 );

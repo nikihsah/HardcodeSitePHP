@@ -45,4 +45,14 @@ class books
                                              FROM authors inner join books ON books.idAuthor = authors.id 
                                              WHERE books.id = $id");
     }
+
+    public static function addBooks($name, $years, $description, $city, $idAuthor, $idGenre){
+        $Select = sprintf("INSERT INTO `books`(
+                    `name`,`years`, `description`,
+                    `city`, `idAuthor`, `idGenre`) 
+                    VALUES ('%s','%s','%s','%s','%s','%s')",
+                    $name, $years, $description, $city, $idAuthor, $idGenre);
+        $connect = connect();
+        return mysqli_query($connect, $Select);
+    }
 }
