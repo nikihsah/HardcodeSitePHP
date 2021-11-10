@@ -26,10 +26,10 @@ class TablesController
         $tables = ['books' => $booksTable, 'authors' => $authorTable, 'genres' => $genresTable];
 
 //        ________САЙТ_______
-        include_once(ROOT . '/includes/header.php');
-        include_once(ROOT . '/Tables and books/modelicon.php');
+        require_once(ROOT . '/includes/header.php');
+        require_once(ROOT . '/Tables and books/modelicon.php');
         require_once('Tables and books/index.php');
-        include(ROOT . '/includes/footer.php');
+        require_once(ROOT . '/includes/footer.php');
 
         return true;
     }

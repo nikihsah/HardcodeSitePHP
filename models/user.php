@@ -28,7 +28,7 @@ class user extends Auser implements interfUser
             'id' => $this -> id];
     }
 
-    function __construct($password, $email, $rank, $username, $id){
+    function __construct(string $password,string $email,int $rank,string $username,int $id){
         $this -> email = $email;
         $this -> password = $password;
         $this -> rank = $rank;
@@ -38,12 +38,11 @@ class user extends Auser implements interfUser
 
     public function adduser(){
         $connect = connect();
-        return mysqli_query($connect, "INSERT INTO `users`(`username`, `password`, `email`, `rank`, `id`) 
-                                        VALUES ('$this -> username',
-                                                '$this -> password',
-                                                '$this -> email',
-                                                '$this -> rank',
-                                                '$this -> id')");
+        return mysqli_query($connect, "INSERT INTO `users`(`username`, `password`, `email`, `rank`) 
+                                        VALUES ('$this->username',
+                                                '$this->password',
+                                                '$this->email',
+                                                '$this->rank')");
     }
 
 //    __________________GET________________
