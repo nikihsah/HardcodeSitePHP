@@ -1,6 +1,5 @@
 <!--Если POST пустой, мы выводим обычные таблицы, иначе таблицы для редактирования-->
 <?php
-var_dump($_POST);
 if(!($_POST)) {
     ?>
     <?php
@@ -26,9 +25,14 @@ if(!($_POST)) {
                 <?php
                 foreach ($table as $numberstr => $str) {
                     echo '<tr>';
+                    $idd = $str['id'];
                     foreach ($str as $key => $value)
                         if(!preg_match('#\w{0,}(id)#', $key)) {
-                            echo sprintf('<td>%s</td>', $value);
+                            if($name=='books') {
+                                echo sprintf("<td><a href='$idd'>%s</a></td>", $value);
+                            }else{
+                                echo sprintf("<td>%s</td>", $value);
+                            }
                         }
 
                     if(!isset($_SESSION['user'])) {
@@ -190,4 +194,4 @@ if(!($_POST)) {
     ?>
     <?php
 }
-?>s
+?>

@@ -16,6 +16,18 @@ class books
         return $tablesRows;
     }
 
+    public static function get(int $id){
+        $connect = connect();
+        $result = mysqli_query($connect, "SELECT books.id, books.name, books.years, books.description, 
+       books.city, books.idAuthor as authorsid, authors.FIO, books.idGenre as genreid, genres.genre 
+        FROM books inner join genres ON books.idGenre = genres.id 
+        inner join authors ON books.idAuthor = authors.id WHERE books.id = $id");
+        while ($row = mysqli_fetch_assoc($result)) {
+            $tablesRows[] = $row;
+        }
+        return $tablesRows;
+    }
+
     public static function delete($id)
     {
         $connect = connect();

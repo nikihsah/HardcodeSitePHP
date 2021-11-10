@@ -18,6 +18,11 @@ class LoginController
                         $users['id']);
                     $session = new Session($user);
                     $_SESSION['user'] = $user;
+
+                    if($_POST['cookie']){
+                        setcookie('user', $user, time() + 3600 * 24 * 7);
+                    }
+
                     header('Location: /');
                 }
             }
@@ -33,6 +38,7 @@ class LoginController
     public function actionLogout(): bool{
         session_start();
         unset($_SESSION['user']);
+        setcookie('user', '', time()-1);
         header('Location: /');
         return true;
     }

@@ -35,8 +35,17 @@
                 </div>
 
                 <div class="row mb-3">
-                    <input type="submit" class="btn btn-dark" value="Войти">
+                    <div class="form-check col-sm-10">
+                        <input class="form-check-input" id="exampleCheck1" name="cookie" type="checkbox">
+                        <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+                    </div>
                 </div>
+
+                <div class="row mb-3">
+                    <input type="submit" class="btn btn-dark">
+                </div>
+
+
 
             </form>
     </div>
