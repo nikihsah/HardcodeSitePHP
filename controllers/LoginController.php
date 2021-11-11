@@ -1,16 +1,16 @@
 <?php
 include_once(ROOT . '/models/user.php');
-include_once (ROOT . '/models/Session.php');
+include_once(ROOT . '/models/Session.php');
 
 class LoginController
 {
     public function actionLogging(): bool
     {
         $userTables = user::getall();
-        if($_POST){
+        if ($_POST) {
             $local = 0;
-            foreach ($userTables as $row => $users){
-                if($users['username'] == $_POST['username'] and $users['password'] == $_POST['password']){
+            foreach ($userTables as $row => $users) {
+                if ($users['username'] == $_POST['username'] and $users['password'] == $_POST['password']) {
                     $user = new user($users['password'],
                         $users['email'],
                         $users['rank'],
@@ -19,7 +19,7 @@ class LoginController
                     $session = new Session($user);
                     $_SESSION['user'] = $user;
 
-                    if($_POST['cookie']){
+                    if ($_POST['cookie']) {
                         setcookie('user', $user, time() + 3600 * 24 * 7);
                     }
 
@@ -35,28 +35,30 @@ class LoginController
         return true;
     }
 
-    public function actionLogout(): bool{
+    public function actionLogout(): bool
+    {
         session_start();
         unset($_SESSION['user']);
-        setcookie('user', '', time()-1);
+        setcookie('user', '', time() - 1);
         header('Location: /');
         return true;
     }
 
-    public function actionSingin(){
+    public function actionSingin()
+    {
         $error = null;
         $users = user::getall();
-        if($_POST){
+        if ($_POST) {
             $error = 1;
-            if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $error = 2;
 
-                if (strlen($_POST['username'])>6){
+                if (strlen($_POST['username']) > 6) {
                     $error = 3;
-                    if( preg_match('#^\S*(?=\S{8,25})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$#', $_POST['password'])){
+                    if (preg_match('#^\S*(?=\S{8,25})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$#', $_POST['password'])) {
                         $error = 0;
-                        foreach ($users as $key => $value){
-                            if($value['email'] != $_POST['email'] and $value['username'] != $_POST['username']){
+                        foreach ($users as $key => $value) {
+                            if ($value['email'] != $_POST['email'] and $value['username'] != $_POST['username']) {
                                 $error = 4;
                             }
                         }
@@ -64,7 +66,7 @@ class LoginController
 //                        (?=\S*[a-z]): содержит хотя бы одну маленькую букву
 //                        (?=\S*[A-Z]): содержит хотя бы одну большую букву
 //                        (?=\S*[\d]): и хотя бы одну цифру
-                        if($error == 0) {
+                        if ($error == 0) {
                             $user = new user($_POST['password'],
                                 $_POST['email'], 0, $_POST['username'], 0);
                             $user->adduser();
