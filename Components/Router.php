@@ -1,5 +1,4 @@
 <?php
-include (ROOT . '/models/Flash.php');
 include (ROOT . '/models/Session.php');
 
 class Router
@@ -28,7 +27,7 @@ class Router
 
     public function run()
     {
-        //Flash и Session
+        //Запустим сесию
 
         //Получаем строку запроса
         $uri = $this->getURI();

@@ -1,4 +1,6 @@
 <?php
+require ('rb.php');
+
 function connect()
 {
     $server = 'localhost';
@@ -6,7 +8,10 @@ function connect()
     $password = '';
     $dbname = 'biblio';
 
-    $connect = mysqli_connect($server, $username, $password, $dbname);
-    mysqli_select_db($connect, $dbname);
+
+
+
+    $connect = mysqli_connect('localhost', 'root', '', 'biblio');
+
     return $connect;
 }

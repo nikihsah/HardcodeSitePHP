@@ -3,6 +3,9 @@ require_once(ROOT . '/models/authors.php');
 require_once(ROOT . '/models/books.php');
 require_once(ROOT . '/models/genres.php');
 require_once(ROOT . '/models/user.php');
+require_once(ROOT . '/models/comments.php');
+require_once(ROOT . '/models/user.php');
+require_once(ROOT . '/rb.php');
 
 class TablesController
 {
@@ -15,10 +18,10 @@ class TablesController
     public function actionIndex(): bool
     {
 
-        // ------------ВЫБОРКА ИЗ ТАБЛИЦ---------------
-        $authorTable = authors::getall();
+        // -- vv----------ВЫБОРКА ИЗ ТАБЛИЦ---------------$authorTable = authors::getall();
         $booksTable = books::getall();
         $genresTable = genres::getall();
+        $authorTable = authors::getall();
         if($_POST) {
             $genre = mysqli_fetch_assoc(books::getGenre($_POST['id']));
             $author = mysqli_fetch_assoc(books::getAuthor($_POST['id']));
@@ -28,7 +31,7 @@ class TablesController
 //        ________САЙТ_______
         require_once(ROOT . '/includes/header.php');
         require_once(ROOT . '/Tables and books/modelicon.php');
-        require_once('Tables and books/index.php');
+        require_once(ROOT . '/Tables and books/index.php');
         require_once(ROOT . '/includes/footer.php');
 
         return true;
@@ -127,7 +130,42 @@ class TablesController
                 break;
         }
 
+        $table = R::dispense($_POST['table']);
+
         return TRUE;
     }
 
+    public function actionBook(){
+
+        $id = trim($_SERVER['REQUEST_URI'], '/');
+
+        $comm = new comments($id);
+
+        $book = books::get($id);
+
+        if(isset($_POST['idUser'])){
+            $comm->addcomment($_POST['idUser'], $_POST['text']);
+            header("Location: ".$_SERVER['REQUEST_URI']);
+        }
+
+        $all = $comm->getcomments();
+
+        require_once(ROOT . '/includes/header.php');
+        include(ROOT . '/book/view.php');
+        require_once(ROOT . '/includes/footer.php');
+
+        return true;
+    }
+
+    public function actionTest(){
+        R::setup('mysql:host=127.0.0.1;dbname=biblio','root', '');
+        $connection = R::testConnection();
+
+        var_dump($connection);
+        $book = R::findAll('books');
+        var_dump($book);
+
+
+        return True;
+    }
 }

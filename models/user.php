@@ -1,8 +1,7 @@
 <?php
-include('Auser.php');
 include('interfUser.php');
 
-class user extends Auser implements interfUser
+class user implements interfUser
 {
     private $password;
     private $email;

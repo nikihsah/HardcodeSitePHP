@@ -1,4 +1,6 @@
 <?php
+require_once (ROOT . '/rb.php');
+
 
 class authors
 {
@@ -10,6 +12,10 @@ class authors
         while ($row = mysqli_fetch_assoc($result)) {
             $tablesRows[] = $row;
         }
+
+//        $book = R::dispense('author');
+//        $tablesRows = R::loadAll('authors', 1);
+
         return $tablesRows;
     }
 

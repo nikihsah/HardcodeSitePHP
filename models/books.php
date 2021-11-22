@@ -1,6 +1,5 @@
 <?php
 
-
 class books
 {
     public static function getall()
@@ -14,6 +13,7 @@ class books
             $tablesRows[] = $row;
         }
         return $tablesRows;
+
     }
 
     public static function get(int $id){
@@ -44,27 +44,44 @@ class books
         ");
     }
 
-    public static function getGenre($id){
+    public static function getGenre($id)
+    {
         $connect = connect();
         return mysqli_query($connect, "SELECT genres.id, genre 
                                              FROM genres inner join books ON books.idGenre = genres.id 
                                              WHERE books.id = $id");
     }
 
-    public static function getAuthor($id){
+    public static function getAuthor($id)
+    {
         $connect = connect();
         return mysqli_query($connect, "SELECT authors.id, FIO 
                                              FROM authors inner join books ON books.idAuthor = authors.id 
                                              WHERE books.id = $id");
     }
 
-    public static function addBooks($name, $years, $description, $city, $idAuthor, $idGenre){
-        $Select = sprintf("INSERT INTO `books`(
-                    `name`,`years`, `description`,
-                    `city`, `idAuthor`, `idGenre`) 
-                    VALUES ('%s','%s','%s','%s','%s','%s')",
-                    $name, $years, $description, $city, $idAuthor, $idGenre);
-        $connect = connect();
-        return mysqli_query($connect, $Select);
+    public static function addBooks($name, $years, $description, $city, $idAuthor, $idGenre)
+    {
+
+
+        $book = R::dispense('books');
+
+        $book->name = $name;
+        $book->years = $years;
+        $book->description = $description;
+        $book->city = $city;
+        $book->idAuthor = $idAuthor;
+        $book->idGenre = $idGenre;
+
+        $book = R::store($book);
+
+        return true;
+//        $Select = sprintf("INSERT INTO `books`(
+//                    `name`,`years`, `description`,
+//                    `city`, `idAuthor`, `idGenre`)
+//                    VALUES ('%s','%s','%s','%s','%s','%s')",
+//                    $name, $years, $description, $city, $idAuthor, $idGenre);
+//        $connect = connect();
+//        return mysqli_query($connect, $Select);
     }
 }
