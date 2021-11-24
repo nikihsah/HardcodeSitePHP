@@ -12,5 +12,9 @@ return array(
     'exit' => 'login/logout',
     'singin' => 'login/singin',
 
+    'colvogenre' => "sixlab/colvogenre",
+    'slovo' => "sixlab/slovo",
+    'date' => "sixlab/date",
+
     "$not" => 'tables/index',
 );

@@ -17,7 +17,7 @@ class TablesController
      */
     public function actionIndex(): bool
     {
-
+        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
         // -- vv----------ВЫБОРКА ИЗ ТАБЛИЦ---------------$authorTable = authors::getall();
         $booksTable = books::getall();
         $genresTable = genres::getall();
@@ -27,7 +27,6 @@ class TablesController
             $author = mysqli_fetch_assoc(books::getAuthor($_POST['id']));
         }
         $tables = ['books' => $booksTable, 'authors' => $authorTable, 'genres' => $genresTable];
-
 //        ________САЙТ_______
         require_once(ROOT . '/includes/header.php');
         require_once(ROOT . '/Tables and books/modelicon.php');
@@ -75,7 +74,6 @@ class TablesController
      */
     public function actionDel(): bool
     {
-        var_dump($_POST);
         switch ($_POST["table"]) {
 
             case 'books':
@@ -107,30 +105,26 @@ class TablesController
      */
     public function actionAdd(): bool
     {
+        var_dump($_POST);
         switch ($_POST["table"]) {
 
-            case 'books':
-                books::addBooks($_POST['name'], $_POST['years'], $_POST['description'],
-                    $_POST['city'], $_POST['FIO'], $_POST['genre']);
+            case "books":
+                books::addBooks($_POST['name'], $_POST['years'], $_POST['description'], $_POST['city'], $_POST['FIO'], $_POST['genre']);
                 header('Location: /');
                 return true;
-                break;
 
-            case 'genres':
+            case "genres":
                 var_dump($_POST);
-                genres::delete($_POST['id']);
+                genres::add($_POST['genre']);
                 header('Location: /');
                 return true;
-                break;
 
-            case 'authors':
-                authors::delete($_POST['id']);
+            case "authors":
+                authors::add($_POST['fio'], $_POST['birthday'], $_POST['death'], $_POST['city']);
                 header('Location: /');
                 return true;
-                break;
         }
 
-        $table = R::dispense($_POST['table']);
 
         return TRUE;
     }
@@ -158,14 +152,27 @@ class TablesController
     }
 
     public function actionTest(){
-        R::setup('mysql:host=127.0.0.1;dbname=biblio','root', '');
+
+        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
         $connection = R::testConnection();
 
-        var_dump($connection);
-        $book = R::findAll('books');
-        var_dump($book);
+        $table = R::findAll('books');
+        foreach($table as $key => $value){
+            $tablesRows[$key-1]['id'] = $value['id'];
+            $tablesRows[$key-1]['name'] = $value['name'];
+            $tablesRows[$key-1]['years'] = $value['years'];
+            $tablesRows[$key-1]['description'] = $value['description'];
+            $tablesRows[$key-1]['city'] = $value['city'];
 
+            $tablesRows[$key-1]['authorid'] = $value['idauthor'];
+            $autho = R::find('authors', $value['idauthor']);
+            $tablesRows[$key-1]['FIO'] = $autho[1]['fio'];
 
+            $tablesRows[$key-1]['genreid'] = $value['idgenre'];
+            $autho = R::find('genres', $value['idgenre']);
+            $tablesRows[$key-1]['genre'] = $autho[1]['genre'];
+        }
+        var_dump($tablesRows);
         return True;
     }
 }

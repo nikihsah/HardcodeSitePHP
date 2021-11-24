@@ -10,7 +10,6 @@ function connect()
 
 
 
-
     $connect = mysqli_connect('localhost', 'root', '', 'biblio');
 
     return $connect;

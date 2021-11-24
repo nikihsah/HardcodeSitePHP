@@ -5,25 +5,47 @@ class genres
 {
     public static function getall()
     {
-        $connect = connect();
-        $result = mysqli_query($connect,'SELECT genres.id, genres.genre From genres');
-        while ($row = mysqli_fetch_assoc($result)) {
-            $tablesRows[] = $row;
+//        $connect = connect();
+//        $result = mysqli_query($connect,'SELECT genres.id, genres.genre From genres');
+//        while ($row = mysqli_fetch_assoc($result)) {
+//            $tablesRows[] = $row;
+//        }
+
+        $table = $genre = R::findAll('genres');
+
+        foreach($table as $key => $value){
+            $tablesRows[$key-1]['id'] = $value['id'];
+            $tablesRows[$key-1]['genre'] = $value['genre'];
         }
+
         return $tablesRows;
     }
 
     public static function delete($id)
     {
-        $connect = connect();
-        return mysqli_query($connect, "DELETE FROM genres WHERE id = '$id'");
+        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
+        $table = R::load('genres', $id);
+        R::trash($table);
     }
 
     public static function upp($id, $genre)
     {
-        $connect = connect();
-        return mysqli_query($connect, "UPDATE genres
-        SET genre = '$genre'
-        WHERE id = '$id'");
+        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
+        $genres = R::load('genres', $id);
+
+        $genres->genre = $genre;
+
+        $genres = R::store($genres);
+        return true;
+    }
+
+    public static function add($genre){
+
+        $genres = R::dispense('genres');
+
+        $genres->genre = $genre;
+
+        $genres = R::store($genres);
+        return true;
     }
 }

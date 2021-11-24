@@ -100,7 +100,7 @@ foreach($tables as $name => $table){
                                 <div class="row mb-3">
                                     <label for="name" class="col-sm-4 col-form-label">ФИО</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="name" type="text" required>
+                                        <input class="form-control" name="fio" type="text" required>
                                     </div>
                                 </div>
 
@@ -112,7 +112,7 @@ foreach($tables as $name => $table){
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="name" class="col-sm-4 col-form-label">ФИО</label>
+                                    <label for="name" class="col-sm-4 col-form-label">Город</label>
                                     <div class="col-sm-8">
                                         <input class="form-control" name="city" type="text" required>
                                     </div>

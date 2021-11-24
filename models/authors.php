@@ -7,29 +7,52 @@ class authors
 
     public static function getall()
     {
-        $connect = connect();
-        $result = mysqli_query($connect, 'SELECT authors.id, authors.FIO, authors.birthday, authors.city, authors.death From authors');
-        while ($row = mysqli_fetch_assoc($result)) {
-            $tablesRows[] = $row;
+        $table = R::findAll('authors');
+
+        foreach($table as $key => $value){
+            $tablesRows[$key-1]['id'] = $value['id'];
+            $tablesRows[$key-1]['FIO'] = $value['fio'];
+            $tablesRows[$key-1]['birthday'] = $value['birthday'];
+            $tablesRows[$key-1]['city'] = $value['city'];
+            $tablesRows[$key-1]['death'] = $value['death'];
         }
 
-//        $book = R::dispense('author');
-//        $tablesRows = R::loadAll('authors', 1);
-
         return $tablesRows;
+
     }
 
     public static function delete($id)
     {
-        $connect = connect();
-        return mysqli_query($connect, "DELETE FROM authors WHERE id = '$id'");
+        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
+        $authors = R::load('authors', $id);
+        R::trash($authors);
     }
 
-    public static function upp($id, $FIO, $birthday, $death, $city)
+    public static function upp($id, $fio, $birthday, $death, $city)
     {
-        $connect = connect();
-        return mysqli_query($connect, "UPDATE authors
-        SET FIO = '$FIO', birthday = '$birthday', death = '$death', city = '$city'
-        WHERE id = $id");
+        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
+        $authors = R::load('authors', $id);
+
+        $authors->fio = $fio;
+        $authors->birthday = $birthday;
+        $authors->death = $death;
+        $authors->city = $city;
+
+        $book = R::store($authors);
+        return true;
+    }
+
+    public static function add($fio, $birthday, $death, $city){
+
+        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
+        $authors = R::dispense('authors');
+
+        $authors->fio = $fio;
+        $authors->birthday = $birthday;
+        $authors->death = $death;
+        $authors->city = $city;
+
+        $book = R::store($authors);
+        return true;
     }
 }

@@ -11,7 +11,7 @@ if(!($_POST)) {
                 <tr>
                     <!--                         Название столбцов -->
                     <?php
-                    foreach ($table[0] as $key => $value) {
+                    foreach ($table[2] as $key => $value) {
                         if(!preg_match("#\w{0,}(id)#", $key)) {
                             echo sprintf('<th scope="row">%s</th>', $key);
                         }
@@ -47,8 +47,8 @@ if(!($_POST)) {
                             </form>
                             <td>
                             <form action="del" method="POST">
-                            <input type="hidden" value="%s" name="id" required >
-                            <input  type="hidden" value="%s" name="table" required >
+                            <input type="hidden" value="%s" name="table" required >
+                            <input  type="hidden" value="%s" name="id" required >
                             <input type="submit" formaction="del" class="btn btn-dark" value="Удалить">
                             </form>
                             </td>

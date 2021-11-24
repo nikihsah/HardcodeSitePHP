@@ -34,10 +34,17 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+                <li><a href="/colvogenre" class="nav-link px-2 text-white">Жанр-количество</a></li>
+                <li><a href="/date" class="nav-link px-2 text-white">Книги за последние десятилетия</a></li>
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            <form method="POST" class="row" action="/slovo">
+                <div class=" col-6">
+                    <input type="text" name="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                </div>
+                <div class=" col-6">
+                    <input type="submit" class="btn btn-outline-light me-2 col-6" value="Найти">
+                </div>
             </form>
 
             <?php
