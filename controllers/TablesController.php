@@ -73,7 +73,7 @@ class TablesController
      * @return bool
      */
     public function actionDel(): bool
-    {
+    {R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
         switch ($_POST["table"]) {
 
             case 'books':
@@ -104,12 +104,12 @@ class TablesController
      * @return bool
      */
     public function actionAdd(): bool
-    {
+    {   R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
         var_dump($_POST);
         switch ($_POST["table"]) {
 
             case "books":
-                books::addBooks($_POST['name'], $_POST['years'], $_POST['description'], $_POST['city'], $_POST['FIO'], $_POST['genre']);
+                books::add($_POST['name'], $_POST['years'], $_POST['description'], $_POST['city'], $_POST['FIO'], $_POST['genre']);
                 header('Location: /');
                 return true;
 

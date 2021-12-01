@@ -15,6 +15,7 @@ class authors
             $tablesRows[$key-1]['birthday'] = $value['birthday'];
             $tablesRows[$key-1]['city'] = $value['city'];
             $tablesRows[$key-1]['death'] = $value['death'];
+            $tablesRows[$key-1]['colvo'] = $value['colvo'];
         }
 
         return $tablesRows;

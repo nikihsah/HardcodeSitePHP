@@ -3,6 +3,8 @@ $not = null;
 return array(
     '^([0-9]+)$' => 'tables/book',
 
+    'procedure' => 'Sevenlab/procedure',
+
     'del' => 'tables/del',
 	'upper' => 'tables/upper',
     'add' => 'tables/add',

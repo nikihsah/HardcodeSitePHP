@@ -16,6 +16,7 @@ class genres
         foreach($table as $key => $value){
             $tablesRows[$key-1]['id'] = $value['id'];
             $tablesRows[$key-1]['genre'] = $value['genre'];
+            $tablesRows[$key-1]['colvo'] = $value['colvo'];
         }
 
         return $tablesRows;

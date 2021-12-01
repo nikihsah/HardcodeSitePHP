@@ -39,8 +39,8 @@ class books
 
     public static function delete($id)
     {
-        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
-        $table = R::load('genres', $id);
+
+        $table = R::load('books', $id);
         R::trash($table);
     }
 
@@ -75,9 +75,9 @@ class books
                                              WHERE books.id = $id");
     }
 
-    public static function addBooks($name, $years, $description, $city, $idAuthor, $idGenre)
+    public static function add($name, $years, $description, $city, $idAuthor, $idGenre)
     {
-        R::setup('mysql:host=127.0.0.1:3307; dbname=biblio','root', "");
+
         $book = R::dispense('books');
 
         $book->name = $name;
@@ -85,7 +85,7 @@ class books
         $book->description = $description;
         $book->city = $city;
         $book->idauthor = $idAuthor;
-        $book->idfenre = $idGenre;
+        $book->idgenre = $idGenre;
 
         $book = R::store($book);
 

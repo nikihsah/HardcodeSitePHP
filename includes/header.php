@@ -35,7 +35,8 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="/colvogenre" class="nav-link px-2 text-white">Жанр-количество</a></li>
-                <li><a href="/date" class="nav-link px-2 text-white">Книги за последние десятилетия</a></li>
+                <li><a href="/date" class="nav-link px-2 text-white">Книги за десятилетия</a></li>
+                <li><a href="/procedure" class="nav-link px-2 text-white">Процедуры</a></li>
             </ul>
 
             <form method="POST" class="row" action="/slovo">
